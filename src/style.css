@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.option-toggle {
+  border: 1px solid black;
+  align-self: flex-start;
+}
+.currency {
+  border: 1px solid black;
+}
+
+canvas {
+  border: 1px solid black;
+  width: 400px;
+  height: 400px;
+}
+
+.timer-container {
+  border: 1px solid black;
+}
+
+.timer-button {
+  border: 2px solid black;
+}
