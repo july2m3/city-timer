@@ -8,8 +8,12 @@ body {
   height: 100vh;
   width: 100%;
   display: flex;
+  color: #fff;
   justify-content: center;
   flex-wrap: wrap;
+  background: #fff;
+  background: url('./city.jpg');
+  background-size: cover;
 }
 
 #root {
@@ -20,12 +24,17 @@ body {
   align-items: center;
 }
 
+.top {
+  display: flex;
+}
+
 .option-toggle {
   border: 1px solid black;
-  align-self: flex-start;
+  margin: 0 20px;
 }
 .currency {
   border: 1px solid black;
+  margin: 0 20px;
 }
 
 canvas {
@@ -35,9 +44,14 @@ canvas {
 }
 
 .timer-container {
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  font-size: 3rem;
+  margin: 20px;
 }
 
 .timer-button {
   border: 2px solid black;
+  font-size: 2rem;
+  padding: 10px;
+  border-radius: 10px;
 }
