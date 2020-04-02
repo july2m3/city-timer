@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactNotifications from 'react-browser-notifications';
 
 import './style.css';
 import soundFile from './resources/gong.mp3';
@@ -13,8 +14,8 @@ class CityTimerApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      timerMinutes: 25,
-      timerSeconds: 0,
+      timerMinutes: 0,
+      timerSeconds: 2,
       timerIsOn: false,
       timer: null,
       timerValue: 'start',
@@ -56,6 +57,7 @@ class CityTimerApp extends React.Component {
       if (this.state.timerMinutes <= 0) {
         this.playSound();
         this.timerButton();
+        this.showNotifications();
       } else {
         this.setState(() => ({ timerSeconds: 59 }));
         this.setState(state => ({ timerMinutes: state.timerMinutes - 1 }));
@@ -114,6 +116,19 @@ class CityTimerApp extends React.Component {
     this.setState(() => ({ timerSeconds: 30 }));
   };
 
+  showNotifications = () => {
+    if (this.n.supported()) this.n.show();
+  };
+
+  handleClick = event => {
+    window.focus();
+    this.n.close(event.target.tag);
+  };
+
+  notifyMe = () => {
+    if (this.n.supported()) this.n.show();
+  };
+
   render() {
     return (
       <>
@@ -133,6 +148,18 @@ class CityTimerApp extends React.Component {
             </li>
             <li onClick={this.switchTheme} className="menu-icon">
               <i className="fas fa-moon" />
+            </li>
+            <li className="menu-icon">
+              <ReactNotifications
+                onRef={ref => (this.n = ref)} // Required
+                title="Take a break" // Required
+                body="it is well deserved"
+                icon="devices-logo.png"
+                tag="abcdef"
+                timeout="5000"
+                onClick={event => this.handleClick(event)}
+              />
+              <i onClick={this.showNotifications} className="fas fa-bell" />
             </li>
           </ul>
         </Menu>
