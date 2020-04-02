@@ -2,6 +2,8 @@ import React from 'react';
 
 import './style.css';
 import soundFile from './resources/gong.mp3';
+import bgLight from './resources/mountains.jpg';
+import bgDark from './resources/dark.jpeg';
 
 import Menu from './components/Menu';
 import TimerContainer from './components/TimerContainer';
@@ -11,16 +13,18 @@ class CityTimerApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      timerMinutes: 0,
-      timerSeconds: 3,
+      timerMinutes: 25,
+      timerSeconds: 0,
       timerIsOn: false,
       timer: null,
       timerValue: 'start',
+      darkModeOn: false,
     };
   }
 
   componentDidMount() {
     this.updatePageTitle();
+    this.switchTheme();
   }
 
   timerButton = () => {
@@ -86,20 +90,41 @@ class CityTimerApp extends React.Component {
     this.setState(() => ({ timerSeconds: 0 }));
   };
 
+  switchTheme = () => {
+    let dark = '#333';
+    let light = '#fff';
+    let body = document.querySelector('body');
+
+    this.setState(state => ({ darkModeOn: !this.state.darkModeOn }));
+
+    if (!this.state.darkModeOn) {
+      document.documentElement.style.setProperty('--main-color', light);
+      document.documentElement.style.setProperty('--main-bg-color', dark);
+      body.style = `background: url(${bgDark})`;
+    } else {
+      document.documentElement.style.setProperty('--main-color', dark);
+      document.documentElement.style.setProperty('--main-bg-color', light);
+      body.style = `background: url(${bgLight})`;
+      body.style = 'background-size: cover';
+    }
+  };
+
   render() {
     return (
       <>
         {/* "Wind Chime, Gamelan Gong, A.wav" by InspectorJ (www.jshaw.co.uk) of Freesound.org */}
         <audio src={soundFile} />
-
         <TimerContainer time={this.getTimerValue()} />
         <TimerButton onClick={this.timerButton} value={this.state.timerValue} />
         <Menu>
           <ul className="menu-list">
             <li onClick={this.resetTimerSmall}>25:00</li>
             <li onClick={this.resetTimerBig}>45:00</li>
-            <li onClick={this.playSound} className="play">
+            <li onClick={this.playSound} className="menu-icon">
               <i className="fas fa-play"></i>
+            </li>
+            <li onClick={this.switchTheme} className="menu-icon">
+              <i className="fas fa-moon" />
             </li>
           </ul>
         </Menu>
