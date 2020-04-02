@@ -11,8 +11,8 @@ class CityTimerApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      timerMinutes: 25,
-      timerSeconds: 0,
+      timerMinutes: 0,
+      timerSeconds: 3,
       timerIsOn: false,
       timer: null,
       timerValue: 'start',
@@ -25,6 +25,7 @@ class CityTimerApp extends React.Component {
 
   timerButton = () => {
     let timer;
+
     if (!this.state.timerIsOn) {
       timer = setInterval(this.subTractTime, 1000);
       this.setState(() => ({ timer }));
@@ -45,10 +46,18 @@ class CityTimerApp extends React.Component {
 
   subTractTime = () => {
     this.setState(state => ({ timerSeconds: state.timerSeconds - 1 }));
-    if (this.state.timerSeconds < 0) {
-      this.setState(() => ({ timerSeconds: 59 }));
-      this.setState(state => ({ timerMinutes: state.timerMinutes - 1 }));
+
+    // < 1 is so timer doesn't go into negatives
+    if (this.state.timerSeconds < 1) {
+      if (this.state.timerMinutes <= 0) {
+        this.playSound();
+        this.timerButton();
+      } else {
+        this.setState(() => ({ timerSeconds: 59 }));
+        this.setState(state => ({ timerMinutes: state.timerMinutes - 1 }));
+      }
     }
+
     this.updatePageTitle();
   };
 
@@ -67,6 +76,16 @@ class CityTimerApp extends React.Component {
     audio.play();
   };
 
+  resetTimerSmall = () => {
+    this.setState(() => ({ timerMinutes: 25 }));
+    this.setState(() => ({ timerSeconds: 0 }));
+  };
+
+  resetTimerBig = () => {
+    this.setState(() => ({ timerMinutes: 45 }));
+    this.setState(() => ({ timerSeconds: 0 }));
+  };
+
   render() {
     return (
       <>
@@ -76,9 +95,13 @@ class CityTimerApp extends React.Component {
         <TimerContainer time={this.getTimerValue()} />
         <TimerButton onClick={this.timerButton} value={this.state.timerValue} />
         <Menu>
-          <p onClick={this.playSound} className="play">
-            <i className="fas fa-play"></i>
-          </p>
+          <ul className="menu-list">
+            <li onClick={this.resetTimerSmall}>25:00</li>
+            <li onClick={this.resetTimerBig}>45:00</li>
+            <li onClick={this.playSound} className="play">
+              <i className="fas fa-play"></i>
+            </li>
+          </ul>
         </Menu>
       </>
     );
