@@ -14,8 +14,8 @@ class CityTimerApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      timerMinutes: 0,
-      timerSeconds: 2,
+      timerMinutes: 25,
+      timerSeconds: 0,
       timerIsOn: false,
       timer: null,
       timerValue: 'start',
