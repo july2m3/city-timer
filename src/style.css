@@ -63,8 +63,16 @@ body {
 
 .menu-list li {
   margin: 10px;
+  font-size: 1.6rem;
 }
 
 .menu-list li:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .menu {
+    top: 20px;
+    right: 10px;
+  }
 }

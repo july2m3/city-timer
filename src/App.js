@@ -109,6 +109,11 @@ class CityTimerApp extends React.Component {
     }
   };
 
+  teaTime = () => {
+    this.setState(() => ({ timerMinutes: 1 }));
+    this.setState(() => ({ timerSeconds: 30 }));
+  };
+
   render() {
     return (
       <>
@@ -118,6 +123,9 @@ class CityTimerApp extends React.Component {
         <TimerButton onClick={this.timerButton} value={this.state.timerValue} />
         <Menu>
           <ul className="menu-list">
+            <li onClick={this.teaTime} className="menu-icon">
+              <i class="fas fa-mug-hot"></i>
+            </li>
             <li onClick={this.resetTimerSmall}>25:00</li>
             <li onClick={this.resetTimerBig}>45:00</li>
             <li onClick={this.playSound} className="menu-icon">
