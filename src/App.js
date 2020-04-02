@@ -1,10 +1,11 @@
 import React from 'react';
+
 import './style.css';
-import OptionToggle from './Components/OptionToggle';
-import Currency from './Components/Currency';
-import CityContainer from './Components/CityContainer';
-import TimerContainer from './Components/TimerContainer';
-import TimerButton from './Components/TimerButton';
+import soundFile from './resources/gong.mp3';
+
+import Menu from './components/Menu';
+import TimerContainer from './components/TimerContainer';
+import TimerButton from './components/TimerButton';
 
 class CityTimerApp extends React.Component {
   constructor(props) {
@@ -16,6 +17,10 @@ class CityTimerApp extends React.Component {
       timer: null,
       timerValue: 'start',
     };
+  }
+
+  componentDidMount() {
+    this.updatePageTitle();
   }
 
   timerButton = () => {
@@ -56,16 +61,25 @@ class CityTimerApp extends React.Component {
     return m + ':' + s;
   };
 
+  playSound = () => {
+    let audio = document.querySelector('audio');
+
+    audio.play();
+  };
+
   render() {
     return (
       <>
-        <div className="top">
-          <OptionToggle />
-          <Currency />
-        </div>
-        <CityContainer />
+        {/* "Wind Chime, Gamelan Gong, A.wav" by InspectorJ (www.jshaw.co.uk) of Freesound.org */}
+        <audio src={soundFile} />
+
         <TimerContainer time={this.getTimerValue()} />
         <TimerButton onClick={this.timerButton} value={this.state.timerValue} />
+        <Menu>
+          <p onClick={this.playSound} className="play">
+            <i className="fas fa-play"></i>
+          </p>
+        </Menu>
       </>
     );
   }

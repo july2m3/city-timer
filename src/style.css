@@ -8,11 +8,9 @@ body {
   height: 100vh;
   width: 100%;
   display: flex;
-  background-color: #333;
-  color: #fff;
   justify-content: center;
   flex-wrap: wrap;
-  /* background: url('./city.jpg'); */
+  background: url('./resources/mountains.jpg');
   background-size: cover;
 }
 
@@ -24,37 +22,27 @@ body {
   align-items: center;
 }
 
-.top {
-  display: flex;
-}
-
-.option-toggle {
-  border: 1px solid black;
-  margin: 0 20px;
-}
-.currency {
-  border: 1px solid black;
-  margin: 0 20px;
-}
-
-canvas {
-  margin-top: 50px;
-  border: 1px solid black;
-  width: 200px;
-  height: 200px;
-}
-
 .timer-container {
-  /* border: 1px solid black; */
-  font-size: 3rem;
-  margin: 20px;
+  font-size: 6rem;
+  margin-top: 20%;
 }
 
 .timer-button {
   border: 2px solid black;
+  margin-top: 50px;
   font-size: 2rem;
-  /* padding: 10px; */
   width: 150px;
   height: 100px;
   border-radius: 10px;
+}
+
+.menu {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  /* color: currentColor; */
+}
+
+.menu i:hover {
+  transform: scale(1.3);
 }
