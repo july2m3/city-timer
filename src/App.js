@@ -26,7 +26,20 @@ class CityTimerApp extends React.Component {
   componentDidMount() {
     this.updatePageTitle();
     this.switchTheme();
+
+    document.addEventListener('keydown', this.handleKeyDown);
   }
+
+  handleKeyDown = (event) => {
+    switch (event.keyCode) {
+      case 32: //space key
+        console.log('spinning wheel');
+        this.timerButton();
+        break;
+      default:
+        break;
+    }
+  };
 
   timerButton = () => {
     let timer;
@@ -40,7 +53,7 @@ class CityTimerApp extends React.Component {
       this.setState(() => ({ timerValue: 'start' }));
     }
 
-    this.setState(state => ({
+    this.setState((state) => ({
       timerIsOn: !state.timerIsOn,
     }));
   };
@@ -50,7 +63,7 @@ class CityTimerApp extends React.Component {
   };
 
   subTractTime = () => {
-    this.setState(state => ({ timerSeconds: state.timerSeconds - 1 }));
+    this.setState((state) => ({ timerSeconds: state.timerSeconds - 1 }));
 
     // < 1 is so timer doesn't go into negatives
     if (this.state.timerSeconds < 1) {
@@ -60,7 +73,7 @@ class CityTimerApp extends React.Component {
         this.showNotifications();
       } else {
         this.setState(() => ({ timerSeconds: 59 }));
-        this.setState(state => ({ timerMinutes: state.timerMinutes - 1 }));
+        this.setState((state) => ({ timerMinutes: state.timerMinutes - 1 }));
       }
     }
 
@@ -97,7 +110,7 @@ class CityTimerApp extends React.Component {
     let light = '#fff';
     let body = document.querySelector('body');
 
-    this.setState(state => ({ darkModeOn: !this.state.darkModeOn }));
+    this.setState((state) => ({ darkModeOn: !this.state.darkModeOn }));
 
     if (!this.state.darkModeOn) {
       document.documentElement.style.setProperty('--main-color', light);
@@ -120,7 +133,7 @@ class CityTimerApp extends React.Component {
     if (this.n.supported()) this.n.show();
   };
 
-  handleClick = event => {
+  handleClick = (event) => {
     window.focus();
     this.n.close(event.target.tag);
   };
@@ -139,7 +152,7 @@ class CityTimerApp extends React.Component {
         <Menu>
           <ul className="menu-list">
             <li onClick={this.teaTime} className="menu-icon">
-              <i class="fas fa-mug-hot"></i>
+              <i className="fas fa-mug-hot"></i>
             </li>
             <li onClick={this.resetTimerSmall}>25:00</li>
             <li onClick={this.resetTimerBig}>45:00</li>
@@ -151,13 +164,13 @@ class CityTimerApp extends React.Component {
             </li>
             <li className="menu-icon">
               <ReactNotifications
-                onRef={ref => (this.n = ref)} // Required
+                onRef={(ref) => (this.n = ref)} // Required
                 title="Take a break" // Required
                 body="it is well deserved"
                 icon="devices-logo.png"
                 tag="abcdef"
                 timeout="5000"
-                onClick={event => this.handleClick(event)}
+                onClick={(event) => this.handleClick(event)}
               />
               <i onClick={this.showNotifications} className="fas fa-bell" />
             </li>
